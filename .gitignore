@@ -3,16 +3,53 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+data.heap
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Системные файлы
+Thumbs.db
+
+# Логи
+*.log
+logs/
+
+# Временные файлы
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Файлы данных (если не хотите коммитить тестовые данные)
+*.dat
+*.heap
+*.db
+catalog/
+data/
+test-data/
+
+# Файлы окружения
+.env
+*.env
+
+# Резервные копии
+*.bak
+*.backup
+
+# Результаты тестов
+test-results/
+reports/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
-*.iws
-*.iml
-*.ipr
-out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 

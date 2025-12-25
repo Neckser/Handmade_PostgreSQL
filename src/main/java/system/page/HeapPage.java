@@ -37,9 +37,9 @@ public class HeapPage implements Page{
     private int upper() { return buf.getShort(8) & 0xFFFF; }
     private void setLower(int v) { buf.putShort(6, (short) v); }
     private void setUpper(int v) { buf.putShort(8, (short) v); }
-    private int slotCount() { return buf.getShort(4) & 0xFFFF; }
+    public int slotCount() { return buf.getShort(4) & 0xFFFF; }
     private void setSlotCount(int v) { buf.putShort(4, (short) v); }
-    private int getFreeSpace() { return upper() - lower(); }
+    public int getFreeSpace() { return upper() - lower(); }
 
     @Override
     public byte[] bytes() {
