@@ -1,8 +1,7 @@
 package system.semantic;
 
-import system.catalog.CatalogManager;
-import system.nodes.AstNode;
-import system.semantic.QueryTree;
+import system.catalog.manager.CatalogManager;
+import system.parser.nodes.AstNode;
 
 public interface SemanticAnalyzer {
     QueryTree analyze(AstNode ast, CatalogManager catalog);

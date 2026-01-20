@@ -1,0 +1,86 @@
+package system.planner;
+
+
+import system.ast.QueryTree;
+import system.catalog.manager.CatalogManager;
+import system.catalog.model.*;
+import system.ast.Expr;
+import system.ast.TargetEntry;
+import system.planner.node.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class PlannerImpl implements Planner {
+
+    private final CatalogManager catalogManager;
+
+    public PlannerImpl(CatalogManager catalogManager) {
+        this.catalogManager = catalogManager;
+    }
+
+    @Override
+    public LogicalPlanNode plan(QueryTree queryTree) {
+        if (queryTree == null) throw new IllegalArgumentException("QueryTree is null");
+
+        return switch (queryTree.commandType) {
+            case CREATE -> planCreate(queryTree);
+            case INSERT -> planInsert(queryTree);
+            case SELECT -> planSelect(queryTree);
+        };
+    }
+
+    private LogicalPlanNode planCreate(QueryTree q) {
+        String tableName = extractTableName(q);
+
+        List<ColumnDefinition> columns = new ArrayList<>();
+        int position = 0;
+        for (TargetEntry te : q.targetList) {
+            TypeDefinition type = catalogManager.getType(te.resultType);
+
+            columns.add(new ColumnDefinition(
+                    type.getOid(),
+                    te.alias,
+                    position++
+            ));
+        }
+
+        TableDefinition tableDef = new TableDefinition(0, tableName, "USER", tableName, 0);
+        tableDef.setColumns(columns);
+
+        return new CreateTableNode(tableDef);
+    }
+
+    private LogicalPlanNode planInsert(QueryTree q) {
+        String tableName = extractTableName(q);
+        TableDefinition tableDef = catalogManager.getTable(tableName);
+
+        List<Expr> values = q.targetList.stream()
+                .map(te -> te.expr)
+                .toList();
+
+        return new InsertNode(tableDef, values);
+    }
+
+    private LogicalPlanNode planSelect(QueryTree q) {
+        String tableName = extractTableName(q);
+        TableDefinition tableDef = catalogManager.getTable(tableName);
+        LogicalPlanNode plan = new ScanNode(tableDef);
+
+        if (q.whereClause != null) {
+            plan = new FilterNode(q.whereClause, plan);
+        }
+
+        plan = new ProjectNode(q.targetList, plan);
+
+        return plan;
+    }
+
+    private String extractTableName(QueryTree q) {
+        if (q.rangeTable != null && !q.rangeTable.isEmpty() && q.rangeTable.get(0).tableName != null) {
+            return q.rangeTable.get(0).tableName;
+        }
+        throw new IllegalArgumentException("Cannot determine table name");
+    }
+}

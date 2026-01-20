@@ -9,15 +9,15 @@ public class Token {
         this.value = value;
     }
 
-    public String getType() { return type; }
-    public String getValue() { return value; }
+    public String getType() {
+        return type;
+    }
+    public String getValue() {
+        return value;
+    }
 
     @Override
     public String toString() {
-        if ("IDENT".equals(type) || "NUMBER".equals(type)) {
-            return type + "(" + value + ")";
-        } else {
-            return type;
-        }
+        return type + (value != null ? "(" + value + ")" : "");
     }
 }
