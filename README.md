@@ -1,13 +1,6 @@
 <!-- Improved compatibility of back to top link -->
 
 <a id="readme-top"></a>
-
-[![Contributors][contributors-shield]][[contributors-url](https://img.shields.io/github/contributors/neckser/Handmade_PostgreSQL.svg?style=for-the-badge)]
-[![Forks][forks-shield]][[forks-url](https://img.shields.io/github/contributors/neckser/Handmade_PostgreSQL.svg?style=for-the-badge)]
-[![Stargazers][stars-shield]][[stars-url](https://img.shields.io/github/contributors/neckser/Handmade_PostgreSQL.svg?style=for-the-badge)]
-[![Issues][issues-shield]][[issues-url](https://img.shields.io/github/contributors/neckser/Handmade_PostgreSQL.svg?style=for-the-badge)]
-[![MIT License][license-shield]][[license-url](https://img.shields.io/github/contributors/neckser/Handmade_PostgreSQL.svg?style=for-the-badge)]
-
 <br />
 <div align="center">
   <h3 align="center">Handmade PostgreSQL</h3>
@@ -223,4 +216,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [Java-url]: https://openjdk.org/
 [Gradle-shield]: https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white
 [Gradle-url]: https://gradle.org/
+
 
